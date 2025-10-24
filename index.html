@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secret Memory</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <style>
+      /* Teddy Animation Container */
+      #teddy-container {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        pointer-events: none;
+        z-index: 9999;
+      }
+
+      #teddy {
+        position: absolute;
+        font-size: 4rem;
+        cursor: pointer;
+        pointer-events: auto;
+        animation: hover 2s ease-in-out infinite;
+        user-select: none;
+      }
+
+      @keyframes hover {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+      }
+
+      #teddy-text {
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.85);
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        font-size: 1rem;
+        color: #ff4e85;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        white-space: nowrap;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .hidden { display: none !important; }
+
+      /* ❤️ Floating Hearts */
+      #hearts-container {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 10;
+      }
+
+      /* Message Slider */
+      .message-slider {
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        box-shadow: 0 -5px 25px rgba(255, 105, 180, 0.4);
+        text-align: center;
+        padding: 30px 20px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        transition: bottom 0.6s ease;
+        font-family: 'Sacramento', cursive;
+        font-size: clamp(1.2rem, 4vw, 1.8rem);
+        color: #ff1493;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-sizing: border-box;
+        z-index: 1000;
+      }
+
+      .message-slider.active { bottom: 0; }
+
+      .message-area {
+        text-align: center;
+        margin-top: 25px;
+      }
+
+      .message-area button {
+        background: #ff69b4;
+        color: white;
+        border: none;
+        padding: 14px 30px;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        box-shadow: 0 0 20px rgba(255, 182, 193, 0.7);
+      }
+
+      .message-area button:hover {
+        transform: scale(1.05);
+        background: #ff1493;
+      }
+
+      /* Mobile */
+      @media (max-width: 600px) {
+        .message-slider {
+          font-size: 1.3rem;
+          padding: 20px 15px;
+        }
+        .message-area button {
+          padding: 12px 25px;
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 🧸 Teddy Animation -->
+    <div id="teddy-container">
+      <div id="teddy">🐻</div>
+      <div id="teddy-text">Touch me! 🐻</div>
+    </div>
+
+    <!-- ❤️ Floating Hearts -->
+    <div id="hearts-container" class="hidden"></div>
+
+    <!-- 🔒 Login -->
+    <div class="auth-container fade-in" id="login-container">
+      <h2 class="slide-down">Name the first movie we watched together with both our friends? </h2>
+      <input type="password" id="password" placeholder="Enter your secret code" class="input-animate" />
+      <button onclick="checkPassword()" class="button-pulse">Unlock</button>
+    </div>
+
+    <!-- 📸 Memory -->
+    <div class="memory-container hidden" id="memory-container">
+      <div class="slider-container">
+       <div class="slider">
+       <img src="assets/image2.png" class="slide active" alt="Memory 1" />
+       </div>
+      </div>
+
+
+      <!-- 💌 New Message Section -->
+      <div class="message-area">
+        <button id="showMsgBtn">Show Message 💕</button>
+      </div>
+
+      <div class="message-slider" id="messageSlider">
+        <p id="typedText"></p>
+      </div>
+    </div>
+
+    <script>
+      // 🧸 Teddy animation
+      const teddy = document.getElementById('teddy');
+      const teddyText = document.getElementById('teddy-text');
+      const teddyContainer = document.getElementById('teddy-container');
+      const loginContainer = document.getElementById('login-container');
+      const memoryContainer = document.getElementById('memory-container');
+
+      function moveTeddy() {
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 100);
+        teddy.style.left = `${x}px`;
+        teddy.style.top = `${y}px`;
+        teddyText.style.left = `${x + 40}px`;
+        teddyText.style.top = `${y - 40}px`;
+      }
+      moveTeddy();
+      const teddyInterval = setInterval(moveTeddy, 2500);
+
+      teddy.addEventListener('click', () => {
+        teddyText.textContent = "Hieeee ❤️";
+        setTimeout(() => teddyText.textContent = "Touch me! 🐻", 1500);
+      });
+
+      // 🔒 Password check
+      function checkPassword() {
+        const pwd = document.getElementById('password').value;
+        const CORRECT_PASSWORD = "yourSecretCode"; // change this
+
+        if (pwd === CORRECT_PASSWORD) {
+          loginContainer.classList.add('hidden');
+          memoryContainer.classList.remove('hidden');
+          teddyContainer.classList.add('hidden');
+          clearInterval(teddyInterval);
+
+          // 🔔 Notify Telegram bot
+          fetch("notify.php", { method: "POST" });
+        } else {
+          alert('Incorrect secret code, try again!');
+        }
+      }
+
+      // 💬 Message slider logic
+      const showMsgBtn = document.getElementById("showMsgBtn");
+      const messageSlider = document.getElementById("messageSlider");
+      const typedText = document.getElementById("typedText");
+
+      const message = "Do you remember this picture? ❤ This was clicked at City Centre during that spontaneous meet-up. It was so sudden—we barely planned, yet we just went out to roam, and honestly, unplanned meet-ups always turn out to be the best🌝🌹. I still remember how you threw little tantrums when I insisted on clicking pictures , and how I got angry about it.🫣🤌🏻. And that moment on the bus while returning home, when I was crying because you were leaving… I felt like I didn’t get enough time with you😳👉🏻👈🏻. Thinking about it now makes me smile and laugh—it’s funny, yet so precious. Every little memory with you is so close to my heart, and this picture reminds me of just that. ";
+
+      showMsgBtn.addEventListener("click", () => {
+        messageSlider.classList.add("active");
+        typeMessage(message);
+      });
+
+      function typeMessage(text) {
+        typedText.textContent = "";
+        let i = 0;
+        const interval = setInterval(() => {
+          typedText.textContent += text[i];
+          i++;
+          if (i >= text.length) clearInterval(interval);
+        }, 70);
+      }
+    </script>
+    <script src="assets/script.js"></script>
+  </body>
+</html>

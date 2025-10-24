@@ -1,0 +1,528 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #f9f3f3, #ffe6f0);
+  overflow-x: hidden;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.auth-container, .memory-container {
+  text-align: center;
+  width: 100%;
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #444;
+}
+
+input[type="password"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 300px;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #ff8cba;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.hidden {
+  display: none;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide {
+  max-width: 90%;
+  max-height: 60vh;
+  object-fit: contain;
+  border-radius: 16px;
+  display: none;
+}
+
+.slide.active {
+  display: block;
+}
+
+.nav-btn {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #ff8cba;
+  cursor: pointer;
+  user-select: none;
+}
+
+.message-box {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #fff0f5;
+  color: #444;
+  font-weight: 500;
+  border-radius: 20px;
+  max-width: 80%;
+  margin-inline: auto;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Floating Hearts */
+#hearts-container svg {
+  position: absolute;
+  top: 100%;
+  animation: floatUp 4s linear infinite;
+  width: 24px;
+  height: 24px;
+  fill: #ff5f96;
+  opacity: 0.7;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.slide-down {
+  animation: slideDown 0.8s ease-in-out;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.input-animate {
+  animation: popIn 0.5s ease-in-out;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.button-pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+/* Preloader Styles */
+#preloader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #fffafc; /* Soft cute background */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#preloader img {
+  width: 150px;
+  animation: bounce 1.5s infinite ease-in-out;
+}
+
+#preloader p {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 1.2em;
+  color: #ff8eb3;
+  margin-top: 10px;
+  animation: fadeIn 1s infinite alternate;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(#ffedf3, #ffe8f0);
+  overflow: hidden;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+/* Scene */
+.scene { position: relative; width: 300px; height: 300px; }
+.ground { position: absolute; bottom: 0; width: 100%; height: 80px; background: #c1f1c5; border-radius: 50% 50% 0 0; }
+.sun { position: absolute; top: 30px; right: 30px; width: 60px; height: 60px; background: #ffdb57; border-radius: 50%; animation: sun-move 4s infinite alternate; }
+.doll { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); width: 80px; height: 120px; background: #ffb6c1; border-radius: 40px; }
+.doll::before { content: ''; position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 60px; height: 60px; background: #ffe6ea; border-radius: 50%; border: 2px solid #ff8ba7; }
+.doll::after { content: '😊'; position: absolute; top: -38px; left: 50%; transform: translateX(-50%); font-size: 28px; }
+.flower { position: absolute; bottom: 80px; width: 20px; height: 20px; background: pink; border-radius: 50%; animation: sway 2s infinite ease-in-out; }
+.flower::before { content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 6px; height: 15px; background: green; border-radius: 3px; }
+.message { position: absolute; bottom: 20px; width: 100%; text-align: center; font-size: 1.2em; color: #ff8ba7; animation: fadeIn 2s ease-in-out infinite alternate; }
+
+@keyframes sway { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(10deg); } }
+@keyframes sun-move { 0% { transform: translateY(0px); } 100% { transform: translateY(-10px); } }
+@keyframes fadeIn { from { opacity: 0.5; } to { opacity: 1; } }
+
+#welcome-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#ffedf3, #ffe8f0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.scene { position: relative; width: 300px; height: 300px; }
+.ground { position: absolute; bottom: 0; width: 100%; height: 80px; background: #c1f1c5; border-radius: 50% 50% 0 0; }
+.sun { position: absolute; top: 30px; right: 30px; width: 60px; height: 60px; background: #ffdb57; border-radius: 50%; animation: sun-move 4s infinite alternate; }
+.doll { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); width: 80px; height: 120px; background: #ffb6c1; border-radius: 40px; }
+.doll::before { content: ''; position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 60px; height: 60px; background: #ffe6ea; border-radius: 50%; border: 2px solid #ff8ba7; }
+.doll::after { content: '😊'; position: absolute; top: -38px; left: 50%; transform: translateX(-50%); font-size: 28px; }
+.flower { position: absolute; bottom: 80px; width: 20px; height: 20px; background: pink; border-radius: 50%; animation: sway 2s infinite ease-in-out; }
+.flower::before { content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 6px; height: 15px; background: green; border-radius: 3px; }
+.message { position: absolute; bottom: 20px; width: 100%; text-align: center; font-size: 1.2em; color: #ff8ba7; animation: fadeIn 2s ease-in-out infinite alternate; }
+
+@keyframes sway { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(10deg); } }
+@keyframes sun-move { 0% { transform: translateY(0px); } 100% { transform: translateY(-10px); } }
+@keyframes fadeIn { from { opacity: 0.5; } to { opacity: 1; } }
+
+
+/* Fade & slide out animation */
+.fade-slide-out {
+  animation: fadeSlideUp 1s ease forwards;
+}
+
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+/* Ensure login screen isn't blocked */
+#welcome-animation {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fffafc;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+/* Fade & slide out animation */
+.fade-slide-out {
+  animation: fadeSlideUp 1s ease forwards;
+}
+
+@keyframes fadeSlideUp {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-50px); }
+}
+
+/* Welcome Animation Scene */
+#welcome-animation {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#cde9ff, #fef6ff);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Sun */
+.sun {
+  position: absolute;
+  top: 40px; right: 40px;
+  width: 80px; height: 80px;
+  background: radial-gradient(circle, #fff7a6, #ffdd66);
+  border-radius: 50%;
+  box-shadow: 0 0 20px #ffd966;
+}
+
+/* Clouds */
+.cloud {
+  position: absolute;
+  background: #ffffffcc;
+  border-radius: 50%;
+  width: 100px; height: 60px;
+  filter: blur(1px);
+}
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: #ffffffcc;
+  border-radius: 50%;
+}
+.cloud::before {
+  width: 60px; height: 60px;
+  left: -30px; top: -10px;
+}
+.cloud::after {
+  width: 60px; height: 60px;
+  right: -30px; top: -10px;
+}
+
+/* Cloud movement */
+.cloud1 { top: 100px; left: -150px; animation: moveCloud 25s linear infinite; }
+.cloud2 { top: 200px; left: -200px; animation: moveCloud 30s linear infinite; }
+.cloud3 { top: 150px; left: -250px; animation: moveCloud 35s linear infinite; }
+
+@keyframes moveCloud {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(120vw); }
+}
+
+/* Teddy Bear */
+.teddy {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px; height: 150px;
+  background: url('assets/teddy.png') no-repeat center/contain;
+}
+
+/* Message */
+.message {
+  position: absolute;
+  bottom: 190px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.4em;
+  font-family: 'Comic Sans MS', cursive;
+  color: #704214;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 8px 14px;
+  border-radius: 20px;
+}
+/* Fade & slide out animation */
+.fade-slide-out {
+  animation: fadeSlideUp 1s ease forwards;
+}
+
+@keyframes fadeSlideUp {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-50px); }
+}
+
+/* Welcome Animation Scene */
+#welcome-animation {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#cde9ff, #fef6ff);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Sun */
+.sun {
+  position: absolute;
+  top: 40px; right: 40px;
+  width: 80px; height: 80px;
+  background: radial-gradient(circle, #fff7a6, #ffdd66);
+  border-radius: 50%;
+  box-shadow: 0 0 20px #ffd966;
+}
+
+/* Clouds */
+.cloud {
+  position: absolute;
+  background: #ffffffcc;
+  border-radius: 50%;
+  width: 100px; height: 60px;
+  filter: blur(1px);
+}
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: #ffffffcc;
+  border-radius: 50%;
+}
+.cloud::before {
+  width: 60px; height: 60px;
+  left: -30px; top: -10px;
+}
+.cloud::after {
+  width: 60px; height: 60px;
+  right: -30px; top: -10px;
+}
+
+/* Cloud movement */
+.cloud1 { top: 100px; left: -150px; animation: moveCloud 25s linear infinite; }
+.cloud2 { top: 200px; left: -200px; animation: moveCloud 30s linear infinite; }
+.cloud3 { top: 150px; left: -250px; animation: moveCloud 35s linear infinite; }
+
+@keyframes moveCloud {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(120vw); }
+}
+
+/* Teddy Bear with cute bobbing */
+.teddy {
+  position: absolute;
+  bottom: 20px;
+  left: 20px; /* stays in bottom left corner */
+  width: 150px; height: 150px;
+  background: url('assets/teddy.png') no-repeat center/contain;
+  animation: bob 2s ease-in-out infinite, wiggle 3s ease-in-out infinite;
+}
+
+/* Bobbing up and down */
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Gentle side wiggle */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  25% { transform: rotate(2deg) translateY(-4px); }
+  75% { transform: rotate(-2deg) translateY(-4px); }
+}
+
+/* Message */
+.message {
+  position: absolute;
+  bottom: 190px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.4em;
+  font-family: 'Comic Sans MS', cursive;
+  color: #704214;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 8px 14px;
+  border-radius: 20px;
+}
+
+.message-slider {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  box-shadow: 0 -5px 25px rgba(255, 105, 180, 0.4);
+  text-align: center;
+  padding: 30px 20px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  transition: bottom 0.6s ease;
+  font-family: 'Sacramento', cursive;
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  color: #ff1493;
+
+  /* ✅ These are key fixes */
+  max-height: 80vh;          /* Prevents overflow beyond screen */
+  overflow-y: auto;          /* Enables scrolling for long messages */
+  overflow-x: hidden;        /* Avoids sideways scrolling */
+  box-sizing: border-box;
+  word-wrap: break-word;     /* Wraps long text properly */
+}
+
+/* When active */
+.message-slider.active {
+  bottom: 0;
+}
+
+/* Optional: make scroll prettier on mobile */
+.message-slider::-webkit-scrollbar {
+  width: 6px;
+}
+.message-slider::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 105, 180, 0.5);
+  border-radius: 3px;
+}
